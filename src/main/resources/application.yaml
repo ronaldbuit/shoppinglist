@@ -20,8 +20,8 @@ spring:
       client:
         registration:
           google:
-            clientId: 656860505471-tp9ublrl6jrrvvn3hfh6aimiefevfv82.apps.googleusercontent.com
-            clientSecret: Ga2Y1VMYyr72iL0SPt8GPV-8
+            clientId: ---
+            clientSecret: ---
             redirectUriTemplate: "{baseUrl}/oauth2/callback/{registrationId}"
             scope:
               - email
@@ -29,7 +29,7 @@ spring:
 
 app:
   auth:
-    tokenSecret: 926D96C90030DD58429D2751AC1BDBBC
+    tokenSecret: ---
     tokenExpirationMsec: 864000000
   oauth2:
     # After successfully authenticating with the OAuth2 Provider,
