@@ -44,6 +44,26 @@ public class UserRepositoryTest {
         assertThat(foundUser.get().getEmail()).isEqualTo(user2.getEmail());
     }
 
+    @Test
+    public void existsByEmail_none_found() {
+        getFilledAndSavedUser("Test1", "test1@test.com");
+        getFilledAndSavedUser("Test2", "test2@test.com");
+
+        boolean exists = userRepository.existsByEmail("test3@test.com");
+
+        assertThat(exists).isFalse();
+    }
+
+    @Test
+    public void existsByEmail_none_one() {
+        getFilledAndSavedUser("Test1", "test1@test.com");
+        User user2 = getFilledAndSavedUser("Test2", "test2@test.com");
+
+        boolean exists = userRepository.existsByEmail("test2@test.com");
+
+        assertThat(exists).isTrue();
+    }
+
     private User getFilledAndSavedUser(String name, String email)
     {
         User user = new User();
