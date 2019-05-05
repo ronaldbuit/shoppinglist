@@ -38,8 +38,7 @@ public class TokenProvider {
                 .compact();
     }
 
-    private Key getKey()
-    {
+    private Key getKey() {
         return Keys.hmacShaKeyFor(appProperties.getAuth().getTokenSecret().getBytes());
     }
 
