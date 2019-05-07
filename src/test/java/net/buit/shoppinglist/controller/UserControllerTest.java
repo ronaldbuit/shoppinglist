@@ -21,6 +21,8 @@ import org.springframework.test.web.servlet.MvcResult;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 @RunWith(SpringRunner.class)
 @WebMvcTest(UserController.class)
 @ContextConfiguration(classes = {TestCustomUserDetailsService.class})
@@ -52,6 +54,8 @@ public class UserControllerTest {
     public void getCurrentUser_return_user() throws Exception {
         MvcResult result = mockMvc.perform(get("/user/me").contentType(MediaType.APPLICATION_JSON)).andReturn();
 
+        assertThat(result).isNotNull();
+        
         String content = result.getResponse().getContentAsString();
     }
 }

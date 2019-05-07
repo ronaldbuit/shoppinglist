@@ -70,7 +70,7 @@ public class UserRepositoryTest {
         user.setName(name);
         user.setEmail(email);
         user.setEmailVerified(false);
-        user.setProvider(AuthProvider.google);
+        user.setProvider(AuthProvider.GOOGLE);
 
         testEntityManager.persistAndFlush(user);
 

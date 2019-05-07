@@ -6,10 +6,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class UserPrincipal implements OAuth2User, UserDetails {
 
@@ -19,15 +16,15 @@ public class UserPrincipal implements OAuth2User, UserDetails {
 
     private String password;
 
-    private Collection<? extends GrantedAuthority> authorities;
+    private ArrayList<? extends GrantedAuthority> authorities;
 
-    private Map<String, Object> attributes;
+    private HashMap<String, Object> attributes;
 
     public UserPrincipal(Long id, String email, String password, Collection<? extends GrantedAuthority> authorities) {
         this.id = id;
         this.email = email;
         this.password = password;
-        this.authorities = authorities;
+        this.authorities = new ArrayList<>(authorities);
     }
 
     public static UserPrincipal create(User user) {
@@ -97,7 +94,7 @@ public class UserPrincipal implements OAuth2User, UserDetails {
     }
 
     public void setAttributes(Map<String, Object> attributes) {
-        this.attributes = attributes;
+        this.attributes = new HashMap<>(attributes);
     }
 
     @Override
