@@ -1,7 +1,6 @@
 package net.buit.shoppinglist;
 
 import net.buit.shoppinglist.config.AppProperties;
-import net.buit.shoppinglist.model.User;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
