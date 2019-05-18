@@ -1,5 +1,9 @@
 package net.buit.shoppinglist.controller;
 
+import net.buit.shoppinglist.config.AppProperties;
+import net.buit.shoppinglist.config.SecurityConfig;
+import net.buit.shoppinglist.config.WebMvcConfig;
+import net.buit.shoppinglist.model.User;
 import net.buit.shoppinglist.repository.UserRepository;
 import net.buit.shoppinglist.security.TokenProvider;
 import net.buit.shoppinglist.security.oauth2.OAuth2AuthenticationFailureHandler;
@@ -18,14 +22,17 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(UserController.class)
-@ContextConfiguration(classes = {TestCustomUserDetailsService.class})
+@ContextConfiguration(classes = {UserController.class, TestCustomUserDetailsService.class, SecurityConfig.class,
+        WebMvcConfig.class, AppProperties.class})
 public class UserControllerTest {
 
     @MockBean
@@ -52,6 +59,13 @@ public class UserControllerTest {
     @Test
     @WithUserDetails(value = "test")
     public void getCurrentUser_return_user() throws Exception {
+
+        User user = new User();
+        user.setId(1l);
+        user.setEmail("test@test.com");
+        user.setName("test");
+        when(userRepository.findById(any(Long.class))).thenReturn(Optional.of(user));
+
         MvcResult result = mockMvc.perform(get("/user/me").contentType(MediaType.APPLICATION_JSON)).andReturn();
 
         assertThat(result).isNotNull();
